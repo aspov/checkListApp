@@ -1,0 +1,25 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=f967fdc66caf35266dca1b38e2a8fe69c4d340960f00068a36d49dab8ce7fb3b
+
+language: php
+php:
+  - '7.2'
+
+install:
+  - make install
+
+script: make lint test
+
+before_script:
+  - composer run-script post-autoload-dump
+  - composer run-script post-root-package-install
+  - composer run-script post-create-project-cmd
+  - touch database/testDatabase.sqlite
+  - php artisan migrate
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
