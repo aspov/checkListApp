@@ -33,11 +33,11 @@
                         <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
-                        
+                        @hasallroles('super-admin|admin')
                         <li class="nav-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Admin') }}</a>
                         </li>
-                        
+                        @endhasallroles
                         <li class="nav-item {{ request()->routeIs('check_lists.index') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('check_lists.index') }}">{{ __('CheckLists') }}</a>
                         </li>
