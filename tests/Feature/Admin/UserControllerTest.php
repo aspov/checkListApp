@@ -8,7 +8,8 @@ use Tests\TestCase;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Database\Seeds\PermissionsDemoSeeder;
+use PermissionsDemoSeeder;
+#use Illuminate\Database\Seeder;
 
 class UserControllerTest extends TestCase
 {
