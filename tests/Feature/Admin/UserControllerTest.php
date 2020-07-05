@@ -9,7 +9,6 @@ use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use PermissionsDemoSeeder;
-#use Illuminate\Database\Seeder;
 
 class UserControllerTest extends TestCase
 {
