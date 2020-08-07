@@ -14,11 +14,17 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
-Route::resource('/my/account', 'MyAccountController')->except(['create', 'store']);
+
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
-    Route::resource('/admins', 'Admin\AdminController')->middleware('role:super-admin');
+    Route::resource('/admins', 'Admin\AdminController')
+        ->parameters(['admins' => 'user'])->middleware('role:super-admin');
     Route::resource('/users', 'Admin\UserController')->middleware('role:super-admin|admin');
     Route::resource('/check_lists', 'Admin\CheckListController')->middleware('role:super-admin|admin');
 });
-Route::resource('/check_lists', 'CheckListController');
-Route::resource('/check_lists.check_list_item', 'CheckListItemController')->only(['create', 'update', 'destroy']);
+
+Route::middleware(['auth', 'status'])->group(function () {
+    Route::view('/my/account/blocked', 'my_account.block')->name('block');
+    Route::resource('/my/account', 'MyAccountController')->except(['create', 'store']);
+    Route::resource('/check_lists', 'CheckListController');
+    Route::resource('/check_lists.check_list_item', 'CheckListItemController')->only(['store', 'update', 'destroy']);
+});

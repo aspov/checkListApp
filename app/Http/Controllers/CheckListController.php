@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class CheckListController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -43,14 +39,6 @@ class CheckListController extends Controller
      */
     public function store(Request $request)
     {
-        /* $this->validate($request, [
-            'name' => [
-                'required',
-                Rule::unique('check_lists')->where(function ($query) {
-                return $query->where('id', \Auth::user()->id);
-        ]); */
-
-        
         if (\Auth::user()->check_lists_limit <= \Auth::user()->checkLists()->count()) {
             flash(__('exceeded the checklists limit'))->error();
             return redirect()->route('check_lists.index');
@@ -81,29 +69,6 @@ class CheckListController extends Controller
                 ->where('check_list_id', $checkList->id)
                 ->paginate(10);
         return view('check_list.show', compact('checkListItems', 'checkList'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\CheckList  $checkList
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, CheckList $checkList)
-    {
-        
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CheckList  $checkList
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CheckList $checkList)
-    {
-        //
     }
 
     /**

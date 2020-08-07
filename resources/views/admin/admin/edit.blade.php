@@ -2,7 +2,7 @@
 @section('admin_content')
 <div class="card-body">
         <div class="container">
-        {{ Form::model($user, ['url' => route('admin.users.update', $user), 'method' => 'put']) }}                        
+        {{ Form::model($user, ['url' => route('admin.admins.update', $user), 'method' => 'put']) }}                        
         <div class="form-group row">
             {{ Form::label('check_lists_limit', __('Check lists limit'),  ['class' => 'col-md-2 col-form-label col-form-label-sm text-md-left']) }}            
             <div class="col-md-4">

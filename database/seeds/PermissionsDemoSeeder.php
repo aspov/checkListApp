@@ -25,24 +25,6 @@ class PermissionsDemoSeeder extends Seeder
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'admin']);
-        $role1->givePermissionTo('edit users');
-        $role1->givePermissionTo('edit checklists');
-
         $role2 = Role::create(['name' => 'super-admin']);
-        // gets all permissions via Gate::before rule; see AuthServiceProvider
-
-        // create demo users
-        $user = factory(\App\User::class)->create([
-            'name' => 'Example admin User',
-            'email' => 'test@example.com',
-        ]);
-        $user->assignRole($role1);
-       
-
-        $user = factory(\App\User::class)->create([
-            'name' => 'Example Super-Admin User',
-            'email' => 'superadmin@example.com',
-        ]);
-        $user->assignRole($role2);
     }
 }

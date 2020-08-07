@@ -8,7 +8,7 @@ use Tests\TestCase;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use PermissionsDemoSeeder;
+#use PermissionsDemoSeeder;
 
 class UserControllerTest extends TestCase
 {
@@ -27,10 +27,8 @@ class UserControllerTest extends TestCase
 
     public function testIndex()
     {
-        $this->seed(PermissionsDemoSeeder::class);
         $user = factory(User::class)->create();
-        $admin = User::role('admin')->first();
-        #print_r(\DB::getDatabaseName());        
+        $admin = User::role('admin')->get()->first();
         $response = $this->actingAs($admin)->get(route('admin.users.index'));
         $response->assertStatus(200);
         $users = $response->viewData('users');
@@ -39,18 +37,16 @@ class UserControllerTest extends TestCase
 
     public function testEdit()
     {
-        $this->seed(PermissionsDemoSeeder::class);
         $user = factory(User::class)->create();
-        $admin = User::role('admin')->first();
+        $admin = User::role('admin')->get()->first();
         $response = $this->actingAs($admin)->get(route('admin.users.edit', $user));
         $response->assertStatus(200);
     }
 
     public function testUpdate()
     {
-        $this->seed(PermissionsDemoSeeder::class);
         $user = factory(User::class)->create();
-        $admin = User::role('admin')->first();
+        $admin = User::role('admin')->get()->first();
         $checkListLimit = ['check_lists_limit' => 10];
         $response = $this->actingAs($admin)->patch(route('admin.users.update', $user), $checkListLimit);
         $response->assertSessionHasNoErrors();

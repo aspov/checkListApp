@@ -20,27 +20,6 @@ class CheckListController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\CheckList  $checkList
@@ -48,31 +27,8 @@ class CheckListController extends Controller
      */
     public function show(Request $request, CheckList $checkList)
     {
-        $checkListItems = $checkList->items()->paginate(3);
+        $checkListItems = $checkList->items()->paginate(10);
         return view('admin.check_list.show', compact('checkListItems', 'checkList'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\CheckList  $checkList
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CheckList $checkList)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CheckList  $checkList
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CheckList $checkList)
-    {
-        //
     }
 
     /**

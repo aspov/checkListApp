@@ -18,7 +18,7 @@
 						{{ Form::close() }}				
 					</div>
 				</div> 
-				<a class="btn btn-primary ml-2" href="{{ route('check_lists.check_list_item.create', $checkList) }}"  data-method="get" rel="nofollow">{{ __('Add item') }}</a>
+				<a class="btn btn-primary ml-2" href="{{ route('check_lists.check_list_item.store', $checkList) }}"  data-method="post" rel="nofollow">{{ __('Add item') }}</a>
 				<a class="btn btn-primary ml-2" href="{{ route('check_lists.destroy', $checkList) }}"  data-confirm="{{ __('Are you sure?') }}" data-method="delete" rel="nofollow">{{ __('Delete checklist') }}</a> 
 			</div>
 		</div>
