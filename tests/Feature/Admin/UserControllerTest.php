@@ -8,7 +8,6 @@ use Tests\TestCase;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-#use PermissionsDemoSeeder;
 
 class UserControllerTest extends TestCase
 {
@@ -32,7 +31,8 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.users.index'));
         $response->assertStatus(200);
         $users = $response->viewData('users');
-        $this->assertTrue(count($users) == 1);
+        $roles = $users->pluck('roles')->flatten()->all();
+        $this->assertTrue(count($roles) == 0);
     }
 
     public function testEdit()
@@ -45,9 +45,10 @@ class UserControllerTest extends TestCase
 
     public function testUpdate()
     {
+        $faker = \Faker\Factory::create();
         $user = factory(User::class)->create();
         $admin = User::role('admin')->get()->first();
-        $checkListLimit = ['check_lists_limit' => 10];
+        $checkListLimit = ['check_lists_limit' => $faker->randomDigit];
         $response = $this->actingAs($admin)->patch(route('admin.users.update', $user), $checkListLimit);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('admin.users.edit', $user));

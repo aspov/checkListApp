@@ -7,22 +7,13 @@ use App\CheckListItem;
 use Illuminate\Http\Request;
 
 class CheckListItemController extends Controller
-{    
+{
     /**
      * Show the form for creating a new resource.
      *
      * @param  \App\CheckList  $checkList
      * @return \Illuminate\Http\Response
      */
-    /* public function create(CheckList $checkList)
-    {
-        $this->authorize('create', $checkList);
-        $item = new CheckListItem();
-        $checkList->items()->save($item);
-        $checkList->save();
-        return redirect()->route('check_lists.show', $checkList);
-    } */
-
     public function store(CheckList $checkList)
     {
         $this->authorize('update', $checkList);
